@@ -11,6 +11,15 @@ export const FoodProvider: React.FC = ({ children }) => {
 
     const [foods, setFoods] = useState<Food[]>([])
 
+    const getFoods = useCallback(async() => {
+        try {
+            const response = await api.get('/foods');
+            setFoods(response.data)
+        } catch (error) {
+            console.log(error);
+        }
+    },[])
+
     const handleAddFood = useCallback(async (food: NewFood) => {
         try {
             const response = await api.post('/foods', {
@@ -47,7 +56,7 @@ export const FoodProvider: React.FC = ({ children }) => {
     },[foods])
 
     return (
-        <FoodContext.Provider value={{ foods, handleAddFood, handleUpdateFood, handleDeleteFood }}>
+        <FoodContext.Provider value={{ foods, getFoods, handleAddFood, handleUpdateFood, handleDeleteFood }}>
             { children }
         </FoodContext.Provider>
     )

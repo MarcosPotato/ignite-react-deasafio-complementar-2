@@ -6,19 +6,22 @@ import Modal from '../Modal';
 import Input from '../Input';
 import { Food } from '../../@types/Food';
 import { FormHandles } from '@unform/core';
+import { useFood } from '../../hooks/Food';
 
 interface ModalProps{
   isOpen: boolean
   editingFood: Food
   setIsOpen: () => void
-  handleUpdateFood: (food: Food) => void
 }
 
-const ModalEditFood: React.FC<ModalProps> = ({ editingFood, handleUpdateFood, isOpen, setIsOpen }) => {
+const ModalEditFood: React.FC<ModalProps> = ({ editingFood, isOpen, setIsOpen }) => {
+  
+  const { handleUpdateFood } = useFood()
+  
   const formRef = useRef<FormHandles>(null)
 
   const handleSubmit = async (data: Food) => {
-    handleUpdateFood(data);
+    handleUpdateFood({...editingFood, ...data});
     setIsOpen();
   };
 

@@ -1,12 +1,14 @@
 import React from 'react';
 import { useRef } from 'react';
-import { FiCheckSquare } from 'react-icons/fi';
+import { FormHandles } from '@unform/core';
 
-import { Form } from './styles';
+import { useFood } from '../../hooks/Food';
+
 import Modal from '../Modal';
 import Input from '../Input';
-import { FormHandles } from '@unform/core';
-import { NewFood } from '../../@types/Food';
+
+import { FiCheckSquare } from 'react-icons/fi';
+import { Form } from './styles';
 
 interface FormData{
   image: string
@@ -18,10 +20,11 @@ interface FormData{
 interface ModalProps{
   isOpen: boolean
   setIsOpen: () => void
-  handleAddFood: (food: NewFood) => Promise<void>
 }
 
-const ModalAddFood: React.FC<ModalProps> = ({ handleAddFood, isOpen, setIsOpen }) => {
+const ModalAddFood: React.FC<ModalProps> = ({ isOpen, setIsOpen }) => {
+
+  const { handleAddFood } = useFood()
 
   const formRef = useRef<FormHandles>(null)
 

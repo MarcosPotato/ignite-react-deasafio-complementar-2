@@ -16,6 +16,7 @@ export interface NewFood{
 
 export interface FoodContextProps{
     foods: Food[]
+    getFoods: () => Promise<void>
     handleDeleteFood: (id: number) => Promise<void>
     handleUpdateFood: (food: FoodInfo) => Promise<void>
     handleAddFood: (food: NewFood) => Promise<void>
